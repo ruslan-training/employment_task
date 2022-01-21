@@ -80,7 +80,7 @@
     u = document.querySelector(".footer-nav__input-button"),
     s =
       (document.querySelector(".footer-nav__button"),
-      document.querySelector(".popup._err"));
+      document.querySelector(".footer-nav__error"));
   d.addEventListener("click", () => {
     u.classList.add("_active"),
       (window.onclick = (e) => {
@@ -91,9 +91,8 @@
       0 != ~e.target.value.indexOf("@")
         ? d.classList.remove("_error")
         : d.classList.add("_error"),
-        d.classList.contains("_error")
-          ? s.classList.add("_error")
-          : s.classList.remove("_error");
+        d.classList.contains("_error") &&
+          (s.textContent = "Вы ввели не верный адрес электронной почты");
     });
   let a = 0,
     m = document.querySelector(".header");
@@ -103,14 +102,14 @@
   });
   document.querySelector(".total-counter");
   const p = document.querySelector(".to-cart__quantity-value"),
-    y = document.querySelector(".increment"),
-    f = document.querySelector(".decrement"),
+    f = document.querySelector(".increment"),
+    y = document.querySelector(".decrement"),
     v = document.querySelector(".to-cart__add"),
     g = document.querySelector(".to-cart__favorite");
-  y.addEventListener("click", function () {
+  f.addEventListener("click", function () {
     p.value++;
   }),
-    f.addEventListener("click", function () {
+    y.addEventListener("click", function () {
       p.value--, p.value > 0 || (p.value < 0 && (p.value = 0));
     }),
     v.addEventListener("click", function () {
@@ -136,8 +135,8 @@
   const S = document.querySelectorAll(".popup-link"),
     _ = document.querySelector("body"),
     h = document.querySelectorAll(".lock-padding");
-  let L = !0;
-  const q = 800;
+  let q = !0;
+  const L = 800;
   if (S.length > 0)
     for (let e = 0; e < S.length; e++) {
       const t = S[e];
@@ -155,27 +154,26 @@
       });
     }
   function w(e) {
-    if (e && L && s.classList.contains("_error")) {
+    if (e && q) {
       const t = document.querySelector(".popup.open");
-      console.log(e),
-        t
-          ? A(t, !1)
-          : (function () {
-              const e =
-                window.innerWidth -
-                document.querySelector(".main-wrapper").offsetWidth +
-                "px";
-              if (h.length > 0)
-                for (let t = 0; t < h.length; t++) {
-                  h[t].style.paddingRight = e;
-                }
-              (_.style.paddingRight = e),
-                _.classList.add("lock"),
-                (L = !1),
-                setTimeout(function () {
-                  L = !0;
-                }, q);
-            })(),
+      t
+        ? A(t, !1)
+        : (function () {
+            const e =
+              window.innerWidth -
+              document.querySelector(".wrapper").offsetWidth +
+              "px";
+            if (h.length > 0)
+              for (let t = 0; t < h.length; t++) {
+                h[t].style.paddingRight = e;
+              }
+            (_.style.paddingRight = e),
+              _.classList.add("lock"),
+              (q = !1),
+              setTimeout(function () {
+                q = !0;
+              }, L);
+          })(),
         e.classList.add("open"),
         e.addEventListener("click", function (e) {
           e.target.closest(".popup__content") || A(e.target.closest(".popup"));
@@ -183,18 +181,18 @@
     }
   }
   function A(e, t = !0) {
-    L &&
+    q &&
       (e.classList.remove("open"),
       t &&
         (setTimeout(function () {
           if (h.length > 0)
             for (let e = 0; e < h.length; e++) h[e].style.paddingRight = "0px";
           (_.style.paddingRight = "0px"), _.classList.remove("lock");
-        }, q),
-        (L = !1),
+        }, L),
+        (q = !1),
         setTimeout(function () {
-          L = !0;
-        }, q)));
+          q = !0;
+        }, L)));
   }
   document.addEventListener("keydown", function (e) {
     if (27 === e.which) {
